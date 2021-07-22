@@ -22,7 +22,7 @@ http.createServer((req, res) => {
     });
         res.write('Hey');
         res.end();
-    }).listen(4000);
+    }).listen(3000);
 
 DiscordClient.on('message', msg => {
     if (msg.content.match(/^!пидордня/) || msg.content.match(/^!пидорня/)) {
