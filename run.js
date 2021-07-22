@@ -1,6 +1,7 @@
 "use strict";
 require('dotenv').config();
 const DiscordJS = require("discord.js");
+const http = require("http");
 const sqlite3 = require("sqlite3");
 const DiscordClient = new DiscordJS.Client();
 const ChatFunctions = require("./src/ChatFunctions");
@@ -14,6 +15,14 @@ const dbAdapter = new DbAdapter(db);
 const gamesRepository = new GamesRepository(dbAdapter);
 const participantsRepository = new ParticipantRepository(dbAdapter);
 const game = new Game(dbAdapter, participantsRepository, gamesRepository);
+
+http.createServer((req, res) => {
+    res.writeHead(200, {
+        'Content-type': 'text/plain'
+    });
+        res.write('Hey');
+        res.end();
+    }).listen(4000);
 
 DiscordClient.on('message', msg => {
     if (msg.content.match(/^!пидордня/) || msg.content.match(/^!пидорня/)) {
@@ -61,7 +70,7 @@ DiscordClient.on('message', msg => {
         let discordId = chunks.join('');
 
         ChatFunctions.temporaryMessage(msg.channel, "Пидарнул пидорка нахуй");
-        
+
         ChatFunctions.deleteMessage(msg, 3000);
         participantsRepository.RemoveParticipant(discordId, msg.guild.id)
         return;
