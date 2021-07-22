@@ -60,11 +60,8 @@ DiscordClient.on('message', msg => {
         chunks.splice(0, 1);
         let discordId = chunks.join('');
 
-        if (msg.author.id !== '207169330549358592') {
-            ChatFunctions.temporaryMessage(msg.channel, "Вы кто такой? Я вас не звал. Идите нахуй!");
-        } else {
-            ChatFunctions.temporaryMessage(msg.channel, "Пидарнул пидорка нахуй");
-        }
+        ChatFunctions.temporaryMessage(msg.channel, "Пидарнул пидорка нахуй");
+        
         ChatFunctions.deleteMessage(msg, 3000);
         participantsRepository.RemoveParticipant(discordId, msg.guild.id)
         return;
